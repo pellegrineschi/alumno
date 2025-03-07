@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
+import { Course } from './models';
+
+
 
 @Component({
   selector: 'app-courses',
@@ -9,7 +12,30 @@ import { CourseDialogComponent } from './components/course-dialog/course-dialog.
 })
 export class CoursesComponent {
 
-  nombreCurso = ""
+  nombreCurso = "";
+
+  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate'];
+  dataSource: Course[] = [
+
+    {
+      id:'1',
+      name: 'angular',
+      startDate: new Date,
+      endDate: new Date(),
+    },
+    {
+      id:'2',
+      name: 'js',
+      startDate: new Date,
+      endDate: new Date(),
+    },
+    {
+      id:'3',
+      name: 'photoshop',
+      startDate: new Date,
+      endDate: new Date(),
+    }
+  ]
 
   constructor(private matDialog: MatDialog){}
 
