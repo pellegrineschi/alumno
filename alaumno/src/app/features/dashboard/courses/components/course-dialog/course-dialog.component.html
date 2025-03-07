@@ -1,4 +1,7 @@
-<h2 mat-dialog-title >Crear Curso</h2>
+<h2  mat-dialog-title>
+
+  {{editingCouse ? "Editando " + editingCouse.name : "Crear curso"}}
+</h2>
 
 <mat-dialog-content>
   <form [formGroup]="courseForm" >
@@ -19,12 +22,7 @@
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
 
-      <!-- @if (range.controls.start.hasError('matStartDateInvalid')) {
-        <mat-error>Invalid start date</mat-error>
-      }
-      @if (range.controls.end.hasError('matEndDateInvalid')) {
-        <mat-error>Invalid end date</mat-error>
-      } -->
+
     </mat-form-field>
   </form>
 </mat-dialog-content>

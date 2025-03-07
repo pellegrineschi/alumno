@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
 import { Course } from './models';
+import { getRandomID } from '../../../shared/utils';
 
 
 
@@ -14,7 +15,7 @@ export class CoursesComponent {
 
   nombreCurso = "";
 
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate'];
+  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'actions'];
   dataSource: Course[] = [
 
     {
@@ -46,8 +47,32 @@ export class CoursesComponent {
     .subscribe({
       next:(value)=>{
         this.nombreCurso = value.name;
+
+        value ['id'] = getRandomID(5)
+
+        this.dataSource = [...this.dataSource, value]
       }
     })
+  }
+
+  editCourse(editingCourse: Course) {
+    this.matDialog.open(CourseDialogComponent, {data: editingCourse})
+    .afterClosed()
+    .subscribe({
+      next:(value)=>{
+        if(!!value){
+          this.dataSource = this.dataSource.map((el)=>
+          el.id === editingCourse.id ? {...value, id: editingCourse.id} : el)
+        }
+      }
+    })
+  }
+
+  deleteCouseByID(id: string){
+    if(confirm('estas seguro?')){
+
+      this.dataSource = this.dataSource.filter((el)=>el.id != id);
+    }
   }
 
 }
