@@ -29,7 +29,11 @@ export class CourseDialogComponent {
   }
 
   onSubmit():void{
-    this.matDialogRef.close(this.courseForm.value)
+    if(this.courseForm.valid){
+
+      this.matDialogRef.close(this.courseForm.value)
+    }else
+    alert('completar formulario')
   }
 
 }

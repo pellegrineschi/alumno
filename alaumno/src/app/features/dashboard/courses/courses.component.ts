@@ -16,6 +16,7 @@ export class CoursesComponent {
   nombreCurso = "";
 
   displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'actions'];
+
   dataSource: Course[] = [
 
     {
