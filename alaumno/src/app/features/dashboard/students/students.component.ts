@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Alumno } from '../courses/models';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
+import { getRandomID } from '../../../shared/utils';
 
 @Component({
   selector: 'app-students',
@@ -8,7 +11,7 @@ import { Alumno } from '../courses/models';
 })
 export class StudentsComponent {
 
-  displayedColumns: string[] = ['id', 'name', 'lastname', 'date', 'email', 'phone'];
+  displayedColumns: string[] = ['id', 'name', 'lastname', 'date', 'email', 'phone', 'actions'];
 
   dataSource: Alumno[] = [
     {
@@ -39,5 +42,42 @@ export class StudentsComponent {
 
     },
   ]
+
+  constructor(private matDialog:MatDialog){}
+
+  openDialog():void {
+
+    this.matDialog.open(StudentDialogComponent)
+    .beforeClosed()
+    .subscribe({
+      next:(value)=>{
+
+
+        value ['id'] = getRandomID(5)
+
+        this.dataSource = [...this.dataSource, value]
+      }
+    })
+  }
+
+  editCourse(editingAlum: Alumno) {
+    this.matDialog.open(StudentDialogComponent, {data: editingAlum})
+    .afterClosed()
+    .subscribe({
+      next:(value)=>{
+        if(!!value){
+          this.dataSource = this.dataSource.map((el)=>
+          el.id === editingAlum.id ? {...value, id: editingAlum.id} : el)
+        }
+      }
+    })
+  }
+
+  deleteCouseByID(id: string){
+    if(confirm('estas seguro?')){
+
+      this.dataSource = this.dataSource.filter((el)=>el.id != id);
+    }
+  }
 
 }

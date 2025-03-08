@@ -12,12 +12,17 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTableModule} from '@angular/material/table';
+import { StudentDialogComponent } from './components/student-dialog/student-dialog.component';
+
 
 
 
 @NgModule({
   declarations: [
-    StudentsComponent
+    StudentsComponent,
+    StudentDialogComponent,
+
+
   ],
   exports:[StudentsComponent],
   imports: [
