@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AutService } from '../../../core/service/aut.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -6,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+  loginForm : FormGroup
+
+  constructor(private autService : AutService, private fb : FormBuilder){
+
+    this.loginForm = this.fb.group({
+      emai:[],
+      password:[],
+      role:[]
+    })
+  }
+
+  onSubmit():void{
+    if(this.loginForm.invalid){
+      alert('formulario invalido')
+    }else{
+      this.autService.login()
+    }
+  }
 
 }

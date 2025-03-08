@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class AutService {
 
   constructor() { }
+
+  login(){}
+
+  obternerUsuarioAuntenticado(){}
+
+  verificarToken(){}
 }
