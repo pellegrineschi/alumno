@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AutService } from '../../../core/service/aut.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,9 @@ export class LoginComponent {
   constructor(private autService : AutService, private fb : FormBuilder){
 
     this.loginForm = this.fb.group({
-      emai:[],
-      password:[],
-      role:[]
+      emai:['',[Validators.required, Validators.email]],
+      password:['',[Validators.required]],
+      role:['ADMIN',[Validators.required]]
     })
   }
 

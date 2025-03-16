@@ -19,24 +19,7 @@ export class CoursesComponent {
 
   dataSource: Course[] = [
 
-    {
-      id:'1',
-      name: 'angular',
-      startDate: new Date,
-      endDate: new Date(),
-    },
-    {
-      id:'2',
-      name: 'js',
-      startDate: new Date,
-      endDate: new Date(),
-    },
-    {
-      id:'3',
-      name: 'photoshop',
-      startDate: new Date,
-      endDate: new Date(),
-    }
+
   ]
 
   constructor(private matDialog: MatDialog){}
