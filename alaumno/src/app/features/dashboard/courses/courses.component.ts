@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
 import { Course } from './models';
 import { getRandomID } from '../../../shared/utils';
+import { CoursesService } from '../../../core/service/courses.service';
 
 
 
@@ -11,18 +12,36 @@ import { getRandomID } from '../../../shared/utils';
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
 
   nombreCurso = "";
 
   displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'actions'];
 
-  dataSource: Course[] = [
+  dataSource: Course[] = []
+
+  isLoading = false;
+
+  constructor(private matDialog: MatDialog,
+              private coursesService: CoursesService
+  ){}
 
 
-  ]
+  ngOnInit(): void {
+    this.loadCourses()
+  }
 
-  constructor(private matDialog: MatDialog){}
+  loadCourses(){
+    this.isLoading = true;
+    this.coursesService.getCourses().subscribe({
+      next: (courses)=>{
+        this.dataSource = courses
+      },
+      complete: ()=>{
+        this.isLoading = true
+      }
+    })
+  }
 
   openDialog():void {
 
